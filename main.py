@@ -1,9 +1,9 @@
-def bubble_sort(arr):
+def bubble_sort(arr, ascending=True):
     n = len(arr)
     for i in range(n - 1):
         swapped = False
         for j in range(n - 1 - i):
-            if arr[j] > arr[j + 1]:
+            if (ascending and arr[j] > arr[j + 1]) or (not ascending and arr[j] < arr[j + 1]):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
                 swapped = True
         if not swapped:
@@ -18,11 +18,21 @@ def main():
         x = float(input(f"Введите число {i + 1}: "))
         numbers.append(x)
 
-    bubble_sort(numbers)
+    direction = input("Направление сортировки (asc/desc): ").strip().lower()
+    ascending = True
+    if direction in ("desc", "d", "убыв", "убывание", "down"):
+        ascending = False
 
-    print("Отсортированный список (по возрастанию):")
+    bubble_sort(numbers, ascending=ascending)
+
+    if ascending:
+        print("Отсортированный список (по возрастанию):")
+    else:
+        print("Отсортированный список (по убыванию):")
+
     print(*numbers)
 
 
 if __name__ == "__main__":
     main()
+
